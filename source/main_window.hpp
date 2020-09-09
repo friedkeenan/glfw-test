@@ -1,7 +1,5 @@
 #pragma once
 
-#include <fried/fried.hpp>
-
 class MainWindow : public frd::glfw::Window {
     public:
         MainWindow(int width, int height, const std::string &name) : frd::glfw::Window(width, height, name) { }

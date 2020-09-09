@@ -3,7 +3,7 @@ project('libfried', 'cpp',
     license         : 'GPL2',
 )
 
-inc = [include_directories('include')]
+inc = []
 
 glad_proj = subproject('glad')
 glad_lib = glad_proj.get_variable('lib')
@@ -14,11 +14,14 @@ glfw_dep = dependency('glfw3')
 sources = []
 subdir('source')
 
+pch = 'include/fried/fried.hpp'
+
 lib = static_library('fried', sources,
     include_directories : inc,
     dependencies        : [glfw_dep],
     link_with           : [glad_lib],
 
+    cpp_pch  : pch,
     cpp_args : [
         '-fno-exceptions',
         '-Wall',

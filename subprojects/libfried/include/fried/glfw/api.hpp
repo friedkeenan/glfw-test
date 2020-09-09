@@ -4,10 +4,13 @@
 #include "window.hpp"
 
 namespace frd::glfw {
+
     namespace glad {
+
         ALWAYS_INLINE bool init() {
             return gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)) == 1;
         }
+
     }
 
     enum class InitHint : int {

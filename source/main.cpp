@@ -1,6 +1,7 @@
-#include <fried/fried.hpp>
-
 #include <random>
+
+#include <shaders/triangle.vert>
+#include <shaders/triangle.frag>
 
 #include "main_window.hpp"
 
@@ -9,6 +10,12 @@ using frd::glfw::Color;
 
 constexpr int WindowWidth = 800;
 constexpr int WindowHeight = 600;
+
+constexpr std::array vertices = {
+    frd::glfw::Vertex(-0.5, -0.5),
+    frd::glfw::Vertex(0.5, -0.5),
+    frd::glfw::Vertex(0, 0.5),
+};
 
 int main(int argc, char **argv) {
     frd::glfw::ApiWrapper api;
@@ -28,6 +35,21 @@ int main(int argc, char **argv) {
     std::uniform_int_distribution<std::int8_t> dis(-4, 4);
 
     Color bg_color(0x800080);
+
+    frd::glfw::Buffer vert_buf(frd::glfw::Buffer::Type::Array);
+    vert_buf.Bind();
+    vert_buf.SendData(vertices.data(), vertices.size());
+
+    frd::glfw::Shader vert(frd::glfw::Shader::Type::Vertex, triangle_vert);
+    std::printf("%u\n", vert.handle);
+    std::printf("%d\n", vert.Compile());
+
+    frd::glfw::Shader frag(frd::glfw::Shader::Type::Fragment, triangle_vert);
+    std::printf("%u\n", frag.handle);
+    std::printf("%d\n", frag.Compile());
+
+    frd::glfw::ShaderProgram prog(vert, frag);
+    std::printf("%d\n", prog.Link());
 
     while (true) {
         auto [error_close, should_close] = window.ShouldClose();

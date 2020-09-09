@@ -3,6 +3,7 @@
 #include "common.hpp"
 
 namespace frd::glfw {
+
     enum class WindowHint : int {
         VersionMajor  = 0x00022002,
         VersionMinor  = 0x00022003,
@@ -209,4 +210,5 @@ namespace frd::glfw {
 
             virtual void SizeCallback(int width, int height) { }
     };
+
 }

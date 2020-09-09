@@ -1,9 +1,9 @@
-#include <fried/fried.hpp>
-
 namespace frd::glfw {
+
     namespace {
+
         /* 
-            A bunch of shims and stuff for handling the callbacks
+            A bunch of shims and stuff for handling the callbacks.
             I'm sorry, I couldn't figure out a better way to handle
             callbacks while still preserving the OOP-style callbacks
         */
@@ -13,6 +13,7 @@ namespace frd::glfw {
             auto window = windows[w];
             window->SizeCallback(width, height);
         }
+
     }
 
     Window::Window(int width, int height, const std::string &name, const GlVersion &version, const std::initializer_list<std::pair<WindowHint, int>> &hints) {
@@ -23,8 +24,9 @@ namespace frd::glfw {
         }
 
         this->window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
-        if (!this->IsValid())
+        if (!this->IsValid()) {
             return;
+        }
 
         windows[this->window] = this;
 
@@ -49,4 +51,5 @@ namespace frd::glfw {
         glClearColor(color.RedFloat(), color.GreenFloat(), color.BlueFloat(), color.AlphaFloat());
         glClear(GL_COLOR_BUFFER_BIT);
     }
+
 }

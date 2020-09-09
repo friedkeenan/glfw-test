@@ -5,6 +5,7 @@
 #include "../defines.hpp"
 
 namespace frd::util {
+
     template<class F>
     class ScopeGuard {
         NON_COPYABLE(ScopeGuard);
@@ -32,6 +33,7 @@ namespace frd::util {
     constexpr ALWAYS_INLINE ScopeGuard<F> operator+(ScopeGuardOnExit, F&& f) {
         return ScopeGuard<F>(std::forward<F>(f));
     }
+
 }
 
 #define SCOPE_GUARD   ::frd::util::ScopeGuardOnExit() + [&]() ALWAYS_INLINE_LAMBDA
